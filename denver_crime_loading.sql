@@ -75,10 +75,6 @@ FOREIGN KEY (incident_id) REFERENCES denver_crime(incident_id);
 ALTER TABLE f23_group20.denver_crime OWNER TO f23_group20;
 ALTER TABLE f23_group20.denver_demographics OWNER TO f23_group20;
 
--- Data Cleaning
 
--- SELECT incident_id, COUNT(*)
--- FROM denver_demographics
--- GROUP BY incident_id
--- HAVING COUNT(*) > 1;
+
 
