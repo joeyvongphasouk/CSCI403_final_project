@@ -1,8 +1,4 @@
-"""
-You will need to install the 'pg8000' library using pip. See the Assignment description in
-Canvas for instructions on how to do this. 'getpass' is a builtin library that you do not
-need to install.
-"""
+
 import pg8000
 import getpass
 
