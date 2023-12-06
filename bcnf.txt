@@ -15,10 +15,25 @@ FDs:
 Step 1:
 Decompose on {offense_id}->{offense_code,offense_code_extension,offense_type_id,offense_category_id}
 Results:
-    R1 = {}
-    R2 = {}
+    R1 = {incident_id, first_occurrence_date, reported_date, incident_address, geo_lon, geo_lat, district_id, precinct_id, neighborhood_id, victim_count}
+    R2 = {offense_id, offense_code, offense_code_extension, offense_type_id, offense_category_id}
 
-    
+Step 2:
+Decompose on {incident_id}->{incident_address}
+Results:
+    R3 = {incident_id, first_occurrence_date, reported_date, geo_lon, geo_lat, district_id, precinct_id, neighborhood_id, victim_count}
+    R4 = {incident_id, incident_address}
 
+Step 3:
+Decompose on {district_id}->{precinct_id, neighborhood_id, geo_lat, geo_lon}
+Results:
+    R5 = {incident_id, first_occurrence_date, reported_date, district_id, victim_count}
+    R6 = {district_id, precinct_id, neighborhood_id, geo_lat, geo_lon}
+
+Final database:
+	R2 = {offense_id, offense_code, offense_code_extension, offense_type_id, offense_category_id}
+	R4 = {incident_id, incident_address}
+	R5 = {incident_id, first_occurrence_date, reported_date, district_id, victim_count}
+	R6 = {district_id, precinct_id, neighborhood_id, geo_lat, geo_lon}
 
 
