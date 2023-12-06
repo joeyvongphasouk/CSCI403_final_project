@@ -3,19 +3,19 @@ SET search_path = f23_group20;
 BEGIN;
 
 -- Create and populate denver_crime_offense table
-DROP TABLE IF EXISTS denver_crime_offense;
+DROP TABLE IF EXISTS denver_crime_offense CASCADE;
 CREATE TABLE denver_crime_offense AS
 SELECT offense_id, offense_code, offense_code_extension, offense_type_id, offense_category_id
 FROM denver_crime;
 
 -- Create and populate denver_crime_incident table
-DROP TABLE IF EXISTS denver_crime_incident;
+DROP TABLE IF EXISTS denver_crime_incident CASCADE;
 CREATE TABLE denver_crime_incident AS
 SELECT offense_id, incident_id, incident_address, victim_count
 FROM denver_crime;
 
 -- Create and populate denver_crime_location table
-DROP TABLE IF EXISTS denver_crime_location ;
+DROP TABLE IF EXISTS denver_crime_location CASCADE;
 CREATE TABLE denver_crime_location AS
 SELECT offense_id, district_id, precinct_id, neighborhood_id, geo_lat, geo_lon
 FROM denver_crime;
