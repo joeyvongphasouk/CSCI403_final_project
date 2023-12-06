@@ -1,0 +1,10 @@
+BCNF on denver_crime table
+
+denver_crime = {all columns}
+key: {offense_id, incident_id}
+
+FDs:
+{offense_id}->{offense_code,offense_code_extension,offense_type_id,offense_category_id}
+{incident_id}->{incident_address}
+{district_id}->{precinct_id, neighborhood_id}
+{precinct_id}->{neighborhood_id}
