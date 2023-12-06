@@ -37,4 +37,12 @@ CREATE TABLE denver_crime (
 
 \COPY denver_crime FROM 'crime2021.csv' WITH CSV HEADER;
 
+--delete appropriate columns
+ALTER TABLE denver_crime
+DROP COLUMN last_occurrence_date,
+DROP COLUMN geo_x,
+DROP COLUMN geo_y,
+DROP COLUMN is_crime,
+DROP COLUMN is_traffic;
+
 ALTER TABLE f23_group20.denver_crime OWNER TO f23_group20;
