@@ -1,6 +1,6 @@
 SET search_path = f23_group20;
 
--- BEGIN;
+BEGIN;
 
 -- create r1
 DROP TABLE IF EXISTS denver_traffic_inc_address;
@@ -34,4 +34,4 @@ ALTER TABLE f23_group20.denver_traffic_offense OWNER TO f23_group20;
 ALTER TABLE f23_group20.denver_traffic_incident OWNER TO f23_group20;
 ALTER TABLE f23_group20.denver_traffic_inc_address OWNER TO f23_group20;
 
--- COMMIT;
+COMMIT;
