@@ -8,9 +8,10 @@ GROUP BY incident_id
 HAVING COUNT(*) > 1
 ORDER BY incident_count DESC;
 
--- there are a couple of incident_id elements that are repeated
--- 4 and 3 times, but most repetitions are only 2 times, this will
--- need to be adressed in normalization
+-- there are a couple of incident_id elements that are repeated at most
+-- 6 times, this will need to be adressed in normalization
+
+-- Seeing which 
 
 
 

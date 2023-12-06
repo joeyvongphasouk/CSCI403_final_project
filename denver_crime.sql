@@ -45,4 +45,14 @@ DROP COLUMN geo_y,
 DROP COLUMN is_crime,
 DROP COLUMN is_traffic;
 
+-- First step, change the appropriate text columns to numeric
+-- Do this by changing the empty strings to NULL values
+
+ALTER TABLE denver_crime
+ALTER COLUMN geo_lon TYPE NUMERIC USING NULLIF(geo_lon, '')::NUMERIC;
+
+ALTER TABLE denver_crime
+ALTER COLUMN geo_lat TYPE NUMERIC USING NULLIF(geo_lat, '')::NUMERIC;
+
+
 ALTER TABLE f23_group20.denver_crime OWNER TO f23_group20;
