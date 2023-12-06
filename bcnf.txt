@@ -1,10 +1,24 @@
 BCNF on denver_crime table
 
-denver_crime = {all columns}
+incident_id, offense_id, offense_code, offense_code_extension, offense_type_id, offense_category_id,
+first_occurrence_date, reported_date, incident_address, geo_lon, geo_lat, district_id, precinct_id, neighborhood_id, victim_count
+
+denver_crime = {incident_id, offense_id, offense_code, offense_code_extension, offense_type_id, offense_category_id,
+first_occurrence_date, reported_date, incident_address, geo_lon, geo_lat, district_id, precinct_id, neighborhood_id, victim_count}
 key: {offense_id, incident_id}
 
 FDs:
 {offense_id}->{offense_code,offense_code_extension,offense_type_id,offense_category_id}
 {incident_id}->{incident_address}
-{district_id}->{precinct_id, neighborhood_id}
-{precinct_id}->{neighborhood_id}
+{district_id}->{precinct_id, neighborhood_id, geo_lat, geo_lon}
+
+Step 1:
+Decompose on {offense_id}->{offense_code,offense_code_extension,offense_type_id,offense_category_id}
+Results:
+    R1 = {}
+    R2 = {}
+
+    
+
+
+
