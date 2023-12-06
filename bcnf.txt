@@ -8,9 +8,9 @@ first_occurrence_date, reported_date, incident_address, geo_lon, geo_lat, distri
 key: {offense_id, incident_id}
 
 FDs:
-{offense_id}->{offense_code,offense_code_extension,offense_type_id,offense_category_id}
-{incident_id}->{incident_address}
-{district_id}->{precinct_id, neighborhood_id, geo_lat, geo_lon}
+    {offense_id}->{offense_code,offense_code_extension,offense_type_id,offense_category_id}
+    {incident_id}->{incident_address}
+    {district_id}->{precinct_id, neighborhood_id, geo_lat, geo_lon}
 
 Step 1:
 Decompose on {offense_id}->{offense_code,offense_code_extension,offense_type_id,offense_category_id}
@@ -21,17 +21,23 @@ Results:
 Step 2:
 Decompose on {incident_id}->{incident_address}
 Results:
-    R3 = {incident_id, first_occurrence_date, reported_date, geo_lon, geo_lat, district_id, precinct_id, neighborhood_id, victim_count}
+    R3 = {offense_id, incident_id, first_occurrence_date, reported_date, geo_lon, geo_lat, district_id, precinct_id, neighborhood_id, victim_count}
     R4 = {incident_id, incident_address}
 
 Step 3:
 Decompose on {district_id}->{precinct_id, neighborhood_id, geo_lat, geo_lon}
 Results:
-    R5 = {incident_id, first_occurrence_date, reported_date, district_id, victim_count}
+    R5 = {offense_id, incident_id, first_occurrence_date, reported_date, district_id, victim_count}
     R6 = {district_id, precinct_id, neighborhood_id, geo_lat, geo_lon}
 
 Final database:
-	R2 = {offense_id, offense_code, offense_code_extension, offense_type_id, offense_category_id}
-	R4 = {incident_id, incident_address}
-	R5 = {incident_id, first_occurrence_date, reported_date, district_id, victim_count}
-	R6 = {district_id, precinct_id, neighborhood_id, geo_lat, geo_lon}
+	R2 = {offense_id, offense_code, offense_code_extension, offense_type_id, offense_category_id} key: offense_id
+	R4 = {incident_id, incident_address} key: incident_id
+	R5 = {offense_id, incident_id, first_occurrence_date, reported_date, district_id, victim_count} key: offense_id, incident_id
+	R6 = {district_id, precinct_id, neighborhood_id, geo_lat, geo_lon} key: district_id, precinct_id, neighborhood_id
+
+Final database:
+	R2 = {offense_id, offense_code, offense_code_extension, offense_type_id, offense_category_id} key: offense_id
+	R4 = {incident_id, incident_address} key: incident_id
+	R5 = {offense_id, incident_id, first_occurrence_date, reported_date, district_id, victim_count} key: offense_id, incident_id
+	R6 = {district_id, precinct_id, neighborhood_id, geo_lat, geo_lon} key: district_id, precinct_id, neighborhood_id
