@@ -11,18 +11,27 @@ CREATE TABLE denver_crime (
     offense_type_id TEXT,
     offense_category_id TEXT,
     first_occurrence_date TIMESTAMP,
+    
+    -- this one is getting deleted
     last_occurrence_date TEXT,
+
     reported_date TIMESTAMP,
     incident_address TEXT,
+    
+    -- these are getting deleted
     geo_x TEXT,
     geo_y TEXT,
+
     geo_lon NUMERIC,
     geo_lat NUMERIC,
     district_id TEXT,
     precinct_id NUMERIC,
     neighborhood_id TEXT,
+
+    -- these are getting deleted
     is_crime NUMERIC,
     is_traffic NUMERIC,
+    
     victim_count NUMERIC
 );
 
