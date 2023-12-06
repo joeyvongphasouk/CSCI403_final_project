@@ -1,5 +1,6 @@
 SET search_path = f23_group20;
 
+BEGIN;
 
 DROP TABLE IF EXISTS denver_crime CASCADE;
 
@@ -56,3 +57,4 @@ ALTER COLUMN geo_lat TYPE NUMERIC USING NULLIF(geo_lat, '')::NUMERIC;
 
 
 ALTER TABLE f23_group20.denver_crime OWNER TO f23_group20;
+COMMIT;
