@@ -57,6 +57,6 @@ Results:
 	R4 = {offense_id, incident_id, offense_code, offense_code_extension, top_traffic_accident_offense}
 
 Final database:
-	denver_traffic_incident = {incident_id, incident_address, first_occurrence_date, reported_date, geo_lon, geo_lat, precinct_id, 	neighborhood_id}
-	denver_traffic_offense = {offense_id, incident_id, offense_code, offense_code_extension, top_traffic_accident_offense}
-	denver_traffic_main = {incident_id, object_id, offense_id, pedestrian_ind, tu1_vehicle_type, tu1_travel_direction, tu1_vehicle_movement, tu1_driver_action, tu1_driver_humancontribfactor, tu1_pedestrian_action, tu2_vehicle_type, tu2_travel_direction, tu2_vehicle_movement, tu2_driver_action, tu2_driver_humancontribfactor, tu2_pedestrian_action, seriously_injured, fatalities}
+	denver_traffic_incident = {incident_id, incident_address, first_occurrence_date, reported_date, geo_lon, geo_lat, precinct_id, 	neighborhood_id} key: incident_id
+	denver_traffic_offense = {offense_id, incident_id, offense_code, offense_code_extension, top_traffic_accident_offense} key: offense_id, incident_id
+	denver_traffic_main = {incident_id, object_id, offense_id, pedestrian_ind, tu1_vehicle_type, tu1_travel_direction, tu1_vehicle_movement, tu1_driver_action, tu1_driver_humancontribfactor, tu1_pedestrian_action, tu2_vehicle_type, tu2_travel_direction, tu2_vehicle_movement, tu2_driver_action, tu2_driver_humancontribfactor, tu2_pedestrian_action, seriously_injured, fatalities} key: incident_id, object_id, offense_id
