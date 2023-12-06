@@ -1,5 +1,6 @@
 DROP TABLE IF EXISTS traffic_accidents;
 CREATE TABLE traffic_accidents (
+    shape TEXT,
     object_id NUMERIC,
     incident_id NUMERIC,
     offense_id NUMERIC,
@@ -50,5 +51,5 @@ CREATE TABLE traffic_accidents (
 );
 
 
-\COPY traffic_accidents FROM '/u/wy/ba/djaramillo/DBMAN_403/final_project/output.csv' DELIMITER ',' CSV HEADER;
+\COPY traffic_accidents FROM './traffic_accidents.csv' DELIMITER ',' CSV HEADER;
 ALTER TABLE f23_group20.traffic_accidents OWNER TO f23_group20;

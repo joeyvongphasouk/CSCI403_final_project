@@ -1,6 +1,6 @@
-UPDATE traffic_accidents
-SET district_id = NULL
-WHERE district_id = 'UI';
+-- UPDATE traffic_accidents
+-- SET district_id = NULL
+-- WHERE district_id = 'UI';
 
 drop table if exists clean_traffic;
 CREATE TABLE clean_traffic AS 
@@ -16,8 +16,13 @@ CREATE TABLE clean_traffic AS
     incident_address,
     geo_lon,
     geo_lat,
-    district_id,
-    --CAST(district_id AS INTEGER) AS district_id,
+
+    -- district_id,
+    --  | Removed district id because value is formatted weirdly
+    --  | Running a SELECT DISTINCT gives duplicate of the same values,
+    --  | ie. 3 or 4 rows of character 5 shows up.
+    --  | Team consensus is to remove this data value altogether
+
     precinct_id,
     neighborhood_id,
     pedestrian_ind,
@@ -42,4 +47,4 @@ CREATE TABLE clean_traffic AS
     fatalities
     FROM traffic_accidents;
 
-ALTER TABLE f23_group20.traffic_accidents OWNER TO f23_group20;
+ALTER TABLE f23_group20.clean_traffic OWNER TO f23_group20;
