@@ -8,16 +8,10 @@ CREATE TABLE denver_crime_offense AS
 SELECT offense_id, offense_code, offense_code_extension, offense_type_id, offense_category_id
 FROM denver_crime;
 
--- Create and populate denver_crime_incident table
-DROP TABLE IF EXISTS denver_crime_incident;
-CREATE TABLE denver_crime_incident AS
-SELECT incident_id, incident_address
-FROM denver_crime;
-
 -- Create and populate denver_crime_main table
 DROP TABLE IF EXISTS denver_crime_main;
 CREATE TABLE denver_crime_main AS
-SELECT offense_id, incident_id, first_occurrence_date, reported_date, district_id, victim_count
+SELECT offense_id, incident_id, incident_address, first_occurrence_date, reported_date, district_id, victim_count
 FROM denver_crime;
 
 -- Create and populate denver_crime_location table
@@ -32,24 +26,17 @@ DROP TABLE denver_crime CASCADE;
 ALTER TABLE denver_crime_offense
 ADD PRIMARY KEY (offense_id);
 
--- Add primary key for denver_crime_incident table
-ALTER TABLE denver_crime_incident
-ADD PRIMARY KEY (incident_id);
-
 -- Add composite primary key for denver_crime_main table
 ALTER TABLE denver_crime_main
 ADD PRIMARY KEY (offense_id, incident_id);
 
 -- Add composite primary key for denver_crime_location table
 ALTER TABLE denver_crime_location
-ADD PRIMARY KEY (district_id, precinct_id, neighborhood_id);
+ADD PRIMARY KEY (district_id, geo_lat, geo_lon);
 
 -- Add foreign key references in denver_crime_main table
 ALTER TABLE denver_crime_main
 ADD FOREIGN KEY (offense_id) REFERENCES denver_crime_offense(offense_id);
-
-ALTER TABLE denver_crime_main
-ADD FOREIGN KEY (incident_id) REFERENCES denver_crime_incident(incident_id);
 
 -- Add foreign key references in denver_crime_location table
 ALTER TABLE denver_crime_location
@@ -63,7 +50,6 @@ ADD FOREIGN KEY (neighborhood_id) REFERENCES denver_crime_main(neighborhood_id);
 
 
 ALTER TABLE f23_group20.denver_crime_offense OWNER TO f23_group20;
-ALTER TABLE f23_group20.denver_crime_incident OWNER TO f23_group20;
 ALTER TABLE f23_group20.denver_crime_main OWNER TO f23_group20;
 ALTER TABLE f23_group20.denver_crime_location OWNER TO f23_group20;
 
