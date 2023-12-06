@@ -50,6 +50,16 @@ CREATE TABLE clean_traffic AS
 ALTER TABLE f23_group20.clean_traffic OWNER TO f23_group20;
 
 
+
+-- Remove duplicates incidents
+DELETE FROM clean_traffic AS ct
+WHERE EXISTS (                               
+    SELECT 1
+    FROM traffic_accidents AS t2
+    WHERE ct.incident_id = t2.incident_id
+      AND ct.object_id < t2.object_id
+);
+
 --UPDATE traffic_accidents
 -- SET 
 --     top_traffic_accident_offense = LOWER(top_traffic_accident_offense),
@@ -127,9 +137,3 @@ ALTER TABLE f23_group20.clean_traffic OWNER TO f23_group20;
 -- UPDATE traffic_accidents SET point_x = 'Unknown' WHERE (point_x IS NULL);
 -- UPDATE traffic_accidents SET point_y = 'Unknown' WHERE (point_y IS NULL);
 
--- DELETE FROM traffic_accidents t1                                                                   WHERE EXISTS (                               
---     SELECT 1
---     FROM traffic_accidents t2
---     WHERE t1.incident_id = t2.incident_id
---       AND t1.object_id < t2.object_id
--- );
