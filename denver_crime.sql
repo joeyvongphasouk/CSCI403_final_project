@@ -22,8 +22,8 @@ CREATE TABLE denver_crime (
     geo_x TEXT,
     geo_y TEXT,
 
-    geo_lon NUMERIC,
-    geo_lat NUMERIC,
+    geo_lon TEXT,
+    geo_lat TEXT,
     district_id TEXT,
     precinct_id NUMERIC,
     neighborhood_id TEXT,
