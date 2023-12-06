@@ -36,3 +36,5 @@ CREATE TABLE denver_crime (
 );
 
 \COPY denver_crime FROM 'crime2021.csv' WITH CSV HEADER;
+
+ALTER TABLE f23_group20.denver_crime OWNER TO f23_group20;
