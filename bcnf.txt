@@ -37,26 +37,38 @@ Final database:
 	R5 = {offense_id, incident_address, incident_id, first_occurrence_date, reported_date, district_id, victim_count} key: offense_id, incident_id
 	R6 = {district_id, precinct_id, neighborhood_id, geo_lat, geo_lon} key: district_id, geo_lat, geo_lon
 
+
+
 BCNF on clean_traffic table
 
 denver_traffic = {object_id, incident_id, incident_address, offense_id, offense_code, offense_code_extension, top_traffic_accident_offense, first_occurrence_date, reported_date, geo_lon, geo_lat, precinct_id, neighborhood_id, pedestrian_ind, harmful_event_seq_1, harmful_event_seq_2, harmful_event_seq_most, road_condition, light_condition, tu1_vehicle_type, tu1_travel_direction, tu1_vehicle_movement, tu1_driver_action, tu1_driver_humancontribfactor, tu1_pedestrian_action, tu2_vehicle_type, tu2_travel_direction, tu2_vehicle_movement, tu2_driver_action, tu2_driver_humancontribfactor, tu2_pedestrian_action, seriously_injured, fatalities}
 
 FDs:
-{incident_id}->{incident_address, first_occurrence_date, reported_date, geo_lon, geo_lat, precinct_id, neighborhood_id}
-{offense_id, incident_id}->{offense_code, offense_code_extension, top_traffic_accident_offense} denver_traffic_offense
+{incident_address}->{geo_lon, geo_lat, precinct_id, neighborhood_id}
+{incident_id}->{incident_address, first_occurrence_date, reported_date, road_condition, light_condition, tu1_vehicle_type, tu1_travel_direction, tu1_vehicle_movement, tu1_driver_action, tu1_driver_humancontribfactor, tu1_pedestrian_action, tu2_vehicle_type, tu2_travel_direction, tu2_vehicle_movement, tu2_driver_action, tu2_driver_humancontribfactor, tu2_pedestrian_action}     // design choice here, seperate metadata above from physical data on this table
+{offense_id}->{offense_code, offense_code_extension, top_traffic_accident_offense} // denver_traffic_offense
 
 Step 1:
-Decompose on {incident_id}->{incident_address, first_occurrence_date, reported_date, geo_lon, geo_lat, precinct_id, neighborhood_id} 
+Decompose on {incident_address}->{geo_lon, geo_lat, precinct_id, neighborhood_id}
 Results:
-	R1 = {incident_id, object_id, offense_id, pedestrian_ind, tu1_vehicle_type, tu1_travel_direction, tu1_vehicle_movement, tu1_driver_action, tu1_driver_humancontribfactor, tu1_pedestrian_action, tu2_vehicle_type, tu2_travel_direction, tu2_vehicle_movement, tu2_driver_action, tu2_driver_humancontribfactor, tu2_pedestrian_action, seriously_injured, fatalities, offense_code, offense_code_extension, top_traffic_accident_offense}
-	R2 = {incident_id, incident_address, first_occurrence_date, reported_date, geo_lon, geo_lat, precinct_id, neighborhood_id} 
+	R1 = {incident_address, geo_lon, geo_lat, precinct_id, neighborhood_id}
+	R2 = {object_id, incident_id, incident_address, offense_id, offense_code, offense_code_extension, top_traffic_accident_offense, first_occurrence_date, reported_date, pedestrian_ind, harmful_event_seq_1, harmful_event_seq_2, harmful_event_seq_most, road_condition, light_condition, tu1_vehicle_type, tu1_travel_direction, tu1_vehicle_movement, tu1_driver_action, tu1_driver_humancontribfactor, tu1_pedestrian_action, tu2_vehicle_type, tu2_travel_direction, tu2_vehicle_movement, tu2_driver_action, tu2_driver_humancontribfactor, tu2_pedestrian_action, seriously_injured, fatalities}
 
-Decompose on {offense_id, incident_id}->{offense_code, offense_code_extension, top_traffic_accident_offense}
-Results: 
-	R3 = {incident_id, object_id, offense_id, pedestrian_ind, tu1_vehicle_type, tu1_travel_direction, tu1_vehicle_movement, tu1_driver_action, tu1_driver_humancontribfactor, tu1_pedestrian_action, tu2_vehicle_type, tu2_travel_direction, tu2_vehicle_movement, tu2_driver_action, tu2_driver_humancontribfactor, tu2_pedestrian_action, seriously_injured, fatalities}
-	R4 = {offense_id, incident_id, offense_code, offense_code_extension, top_traffic_accident_offense}
+Step 2:
+Decompose on {incident_id}->{incident_address, first_occurrence_date, reported_date, road_condition, light_condition, tu1_vehicle_type, tu1_travel_direction, tu1_vehicle_movement, tu1_driver_action, tu1_driver_humancontribfactor, tu1_pedestrian_action, tu2_vehicle_type, tu2_travel_direction, tu2_vehicle_movement, tu2_driver_action, tu2_driver_humancontribfactor, tu2_pedestrian_action}
+Results:
+	R3 = {incident_id, incident_address, first_occurrence_date, reported_date, road_condition, light_condition, tu1_vehicle_type, tu1_travel_direction, tu1_vehicle_movement, tu1_driver_action, tu1_driver_humancontribfactor, tu1_pedestrian_action, tu2_vehicle_type, tu2_travel_direction, tu2_vehicle_movement, tu2_driver_action, tu2_driver_humancontribfactor, tu2_pedestrian_action}
+	R4 = {object_id, incident_id, offense_id, offense_code, offense_code_extension, top_traffic_accident_offense, pedestrian_ind, harmful_event_seq_1, harmful_event_seq_2, harmful_event_seq_most, seriously_injured, fatalities}
+
+Step 3:
+No need to decompose on {offense_id}->{offense_code, offense_code_extension, top_traffic_accident_offense}
+offense_id is already a superkey.
 
 Final database:
 	denver_traffic_incident = {incident_id, incident_address, first_occurrence_date, reported_date, geo_lon, geo_lat, precinct_id, 	neighborhood_id} key: incident_id
 	denver_traffic_offense = {offense_id, incident_id, offense_code, offense_code_extension, top_traffic_accident_offense} key: offense_id, incident_id
 	denver_traffic_main = {incident_id, object_id, offense_id, pedestrian_ind, tu1_vehicle_type, tu1_travel_direction, tu1_vehicle_movement, tu1_driver_action, tu1_driver_humancontribfactor, tu1_pedestrian_action, tu2_vehicle_type, tu2_travel_direction, tu2_vehicle_movement, tu2_driver_action, tu2_driver_humancontribfactor, tu2_pedestrian_action, seriously_injured, fatalities} key: incident_id, object_id, offense_id
+	
+	denver_traffic_inc_address = {incident_address, geo_lon, geo_lat, precinct_id, neighborhood_id}
+	denver_traffic_incident = {incident_id, incident_address, first_occurrence_date, reported_date,, road_condition, light_condition, tu1_vehicle_type, tu1_travel_direction, tu1_vehicle_movement, tu1_driver_action, tu1_driver_humancontribfactor, tu1_pedestrian_action, tu2_vehicle_type, tu2_travel_direction, tu2_vehicle_movement, tu2_driver_action, tu2_driver_humancontribfactor, tu2_pedestrian_action}
+	denver_traffic_offense = {object_id, incident_id, offense_id, offense_code, offense_code_extension, top_traffic_accident_offense, pedestrian_ind, harmful_event_seq_1, harmful_event_seq_2, harmful_event_seq_most, seriously_injured, fatalities}

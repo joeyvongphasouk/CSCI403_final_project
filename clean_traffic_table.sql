@@ -4,7 +4,7 @@
 
 drop table if exists clean_traffic;
 CREATE TABLE clean_traffic AS 
-    SELECT DISTINCT ON (offense_id)
+    SELECT DISTINCT ON (offense_id) -- 202168993854410 is the offense id that dupli
     object_id,
     incident_id,
     offense_id,
