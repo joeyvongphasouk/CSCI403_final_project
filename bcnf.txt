@@ -35,5 +35,3 @@ Final database:
 	R4 = {incident_id, incident_address}
 	R5 = {incident_id, first_occurrence_date, reported_date, district_id, victim_count}
 	R6 = {district_id, precinct_id, neighborhood_id, geo_lat, geo_lon}
-
-
