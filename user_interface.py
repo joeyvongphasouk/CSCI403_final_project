@@ -79,89 +79,6 @@ def search_by_album(db: Connection, search_string: str) -> List[Tuple[str, str, 
         print("Database error\n")
         return []
 
-def insert_artist(db: Connection, artist_name: str):
-    """
-    Inserts a new artist into the database. Does not return anything.
-    """
-    cursor = db.cursor()
-    
-    query = """INSERT INTO artist (name) VALUES (%s)"""
-
-    try:
-        cursor.execute(query, (artist_name, ))
-        db.commit()
-        print(f"Save new artist {artist_name}")
-
-    except pg8000.Error as e:
-        db.rollback()
-        print(f"Database error: {e}\n")
-
-
-
-def insert_album(db: Connection, album_name: str, year: str, artist_name: str):
-    """
-    Inserts a new album with the given name, year, and artist name into the database.
-    Does not return anything.
-    """
-    cursor = db.cursor()
-
-    # find artist id
-    query = "SELECT id FROM artist WHERE name = (%s)"
-
-    query2 = """INSERT INTO album (artist_id, title, year)
-                VALUES (%s, %s, %s)"""
-    try:
-        cursor.execute(query, (artist_name, ))
-        
-        artist_id = cursor.fetchone()
-        if not artist_id:
-            raise pg8000.Error("Invalid")
-
-        cursor.execute(query2, (artist_id, album_name, year))
-        db.commit()
-        print('Save new album: ' + artist_name + ' - ' + album_name + ' (' + year + ')')
-    except pg8000.Error as e:
-        db.rollback()
-        print("Artist does not exist or duplicate album.")
-        print('Details: ' + artist_name + ' - ' + album_name + ' (' + year + ')')
-        print(e)
-
-
-def update_album(db: Connection, album_id: str, album_name: str, year: str):
-    """
-    Updates the album with the given id to have the given name and year. Does not return anything.
-    """
-    cursor = db.cursor()
-
-    query = "UPDATE album SET title = %s, year = %s WHERE id = %s"
-    try:
-        cursor.execute(query, (album_name, year, album_id))
-        db.commit()
-        print('Update album: ' + str(album_id) + ': ' + album_name + ' (' + year + ')')
-    except pg8000.Error as e:
-        db.rollback()
-        print("Album does not exist (invalid album id), or not properly implemented.")
-        print('Details: ' + album_id + ' - ' + album_name + ' (' + year + ')')
-        print(e)
-
-
-def delete_album(db: Connection, album_id: str):
-    """
-    Deletes the album with the given id. Does not return anything.
-    """
-    cursor = db.cursor()
-    query = "DELETE FROM album WHERE id = %s"
-    try:
-        cursor.execute(query, (album_id, ))
-        db.commit()
-        print('Delete album: ' + str(album_id))
-    except pg8000.Error as e:
-        db.rollback()
-        print("Album does not exist (invalid album id), or not properly implemented.")
-        print('Details: ' + album_id)
-        print(e)
-
-
 def get_artists(db: Connection) -> List[str]:
     """
     Returns a list of all artist names in the database.
@@ -243,57 +160,18 @@ def search(db: Connection):
     Searches for albums by artist or album name.
     """
     while True:
-        choice = input('Search by Artist (A) or Album (L)?: ')
-        if choice == 'A' or choice == 'a':
+        choice = input('Search by Offense (O) or Incident (I)?: ')
+        if choice == 'O' or choice == 'o':
             search_str = input('Enter artist name: ')
             print_albums(search_by_artist(db, search_str))
             break
-        elif choice == 'L' or choice == 'l':
+        elif choice == 'I' or choice == 'i':
             search_str = input('Enter album name: ')
             print_albums(search_by_album(db, search_str))
             break
         else:
             print('Invalid choice. Try again.')
         print(' ')
-
-
-def insert(db: Connection):
-    """
-    Inserts new albums or artists into the database.
-    """
-    while True:
-        choice = input('Insert Artist (R) or Album (L)?: ')
-        if choice == 'R' or choice == 'r':
-            name = input('Enter Artist name: ')
-            insert_artist(db, name)
-            break
-        elif choice == 'L' or choice == 'l':
-            al_name = input('Enter Album name: ')
-            year = input('Enter Album year: ')
-            ar_name = input('Enter Artist name: ')
-            insert_album(db, al_name, year, ar_name)
-            break
-        else:
-            print('Invalid choice. Try again.')
-        print(' ')
-
-
-def update(db: Connection):
-    """
-    Updates an album in the database.
-    """
-    al_id = input('Enter Album id: ')
-    al_name = input('Enter NEW Album name: ')
-    al_year = input('Enter NEW Album year: ')
-    update_album(db, al_id, al_name, al_year)
-
-
-def delete(db: Connection):
-    """
-    Deletes an album from the database.
-    """
-    al_id = input('Enter Album id: ')
-    delete_album(db, al_id)
 
 
 def cli():
@@ -309,15 +187,9 @@ def cli():
 
     # main loop
     while True:
-        choice = input('Search (S)\nInsert (I)\nUpdate (U)\nDelete (D)\nGet Artists (G)\nQuit (Q)\n> ')
+        choice = input('Search (S)\nInsert (I)\nUpdate (U)\nGet Artists (G)\nQuit (Q)\n> ')
         if choice == 'S' or choice == 's':
             search(db)
-        elif choice == 'I' or choice == 'i':
-            insert(db)
-        elif (choice == 'U' or choice == 'u'):
-            update(db)
-        elif (choice == 'D' or choice == 'd'):
-            delete(db)
         elif (choice == 'G' or choice == 'g'):
             print_artists(get_artists(db))
         elif (choice == 'Q' or choice == 'q'):

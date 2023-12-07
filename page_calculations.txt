@@ -1,0 +1,19 @@
+Table: denver_crime_incident
+    Relation Size: 5005312
+    Number of Pages: 611
+
+Table: denver_crime_location
+    Relation Size: 5529600
+    Number of Pages: 675
+
+Table: denver_crime_offense
+    Relation Size: 6037504
+
+Table: denver_traffic_inc_address
+    Relation Size: 23339008
+
+Table: denver_traffic_incident
+    Relation Size: 58318848
+
+Table: denver_traffic_offense
+    Relation Size: 39305216
