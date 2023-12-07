@@ -101,4 +101,5 @@ Table: denver_traffic_offense
     8168 = 172R
 
     R = 47 rows per page
+    last page: 23 rows
 
