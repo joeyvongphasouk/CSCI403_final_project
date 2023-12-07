@@ -5,10 +5,10 @@ BEGIN;
 DROP TABLE IF EXISTS denver_crime CASCADE;
 
 CREATE TABLE denver_crime (
-    incident_id NUMERIC,
-    offense_id NUMERIC,
-    offense_code NUMERIC,
-    offense_code_extension NUMERIC,
+    incident_id BIGINT,
+    offense_id BIGINT,
+    offense_code INTEGER,
+    offense_code_extension SMALLINT,
     offense_type_id TEXT,
     offense_category_id TEXT,
     first_occurrence_date TIMESTAMP,
@@ -26,14 +26,14 @@ CREATE TABLE denver_crime (
     geo_lon TEXT,
     geo_lat TEXT,
     district_id TEXT,
-    precinct_id NUMERIC,
+    precinct_id INTEGER,
     neighborhood_id TEXT,
 
     -- these are getting deleted
-    is_crime NUMERIC,
-    is_traffic NUMERIC,
+    is_crime SMALLINT,
+    is_traffic SMALLINT,
     
-    victim_count NUMERIC
+    victim_count SMALLINT
 );
 
 \COPY denver_crime FROM 'crime2021.csv' WITH CSV HEADER;
@@ -50,10 +50,10 @@ DROP COLUMN is_traffic;
 -- Do this by changing the empty strings to NULL values
 
 ALTER TABLE denver_crime
-ALTER COLUMN geo_lon TYPE NUMERIC USING NULLIF(geo_lon, '')::NUMERIC;
+ALTER COLUMN geo_lon TYPE FLOAT USING NULLIF(geo_lon, '')::NUMERIC;
 
 ALTER TABLE denver_crime
-ALTER COLUMN geo_lat TYPE NUMERIC USING NULLIF(geo_lat, '')::NUMERIC;
+ALTER COLUMN geo_lat TYPE FLOAT USING NULLIF(geo_lat, '')::NUMERIC;
 
 
 ALTER TABLE f23_group20.denver_crime OWNER TO f23_group20;

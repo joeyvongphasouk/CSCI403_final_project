@@ -65,10 +65,6 @@ No need to decompose on {offense_id}->{offense_code, offense_code_extension, top
 offense_id is already a superkey.
 
 Final database:
-	denver_traffic_incident = {incident_id, incident_address, first_occurrence_date, reported_date, geo_lon, geo_lat, precinct_id, 	neighborhood_id} key: incident_id
-	denver_traffic_offense = {offense_id, incident_id, offense_code, offense_code_extension, top_traffic_accident_offense} key: offense_id, incident_id
-	denver_traffic_main = {incident_id, object_id, offense_id, pedestrian_ind, tu1_vehicle_type, tu1_travel_direction, tu1_vehicle_movement, tu1_driver_action, tu1_driver_humancontribfactor, tu1_pedestrian_action, tu2_vehicle_type, tu2_travel_direction, tu2_vehicle_movement, tu2_driver_action, tu2_driver_humancontribfactor, tu2_pedestrian_action, seriously_injured, fatalities} key: incident_id, object_id, offense_id
-	
 	denver_traffic_inc_address = {offense_id, incident_address, geo_lon, geo_lat, precinct_id, neighborhood_id} key: offense_id, incident_address
 	denver_traffic_incident = {offense_id, incident_id, incident_address, first_occurrence_date, reported_date,, road_condition, light_condition, tu1_vehicle_type, tu1_travel_direction, tu1_vehicle_movement, tu1_driver_action, tu1_driver_humancontribfactor, tu1_pedestrian_action, tu2_vehicle_type, tu2_travel_direction, tu2_vehicle_movement, tu2_driver_action, tu2_driver_humancontribfactor, tu2_pedestrian_action} key: offense_id, incident_id
 	denver_traffic_offense = {object_id, incident_id, offense_id, offense_code, offense_code_extension, top_traffic_accident_offense, pedestrian_ind, harmful_event_seq_1, harmful_event_seq_2, harmful_event_seq_most, seriously_injured, fatalities} key: offense_id

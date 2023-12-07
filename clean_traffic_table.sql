@@ -57,6 +57,9 @@ ADD CONSTRAINT clean_traffic_pk PRIMARY KEY (offense_id);
 -- alter ownership such to entire group
 ALTER TABLE f23_group20.clean_traffic OWNER TO f23_group20;
 
+-- reformat data in neighborhood_id to match with crime data set
+UPDATE f23_group20.clean_traffic
+SET neighborhood_id = REPLACE(LOWER(neighborhood_id), ' ', '-');
 
 
 
