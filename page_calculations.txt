@@ -1,19 +1,104 @@
 Table: denver_crime_incident
     Relation Size: 5005312
     Number of Pages: 611
+    Space:
+        page oh = 24
+        row oh = 27R
+        1 text = 4R
+            text avg size = 18R
+        2 bigint = 2*8R
+        1 smallint = 2R
+
+    8192 = 24 + 27R + 4R + 18R + 16R + 2R
+    8168 = 67R
+
+    R = 121 rows per page
+    Last Page: 110 Rows
 
 Table: denver_crime_location
     Relation Size: 5529600
     Number of Pages: 675
+    Space: 
+        page oh = 24
+        row oh = 27R
+        2 double precision = 2*8R
+        1 bigint = 8R
+        3 int = 3*4R
+
+    8192 = 24 + 27R + 16R + 8R + 12R
+    8168 = 63R
+
+    R = 129 rows per page
+    Last Page: 84 rows
 
 Table: denver_crime_offense
     Relation Size: 6037504
+    Number of Pages: 737
+    Space:
+        page oh = 24
+        row oh = 27R
+        2 text = 2*4R
+            22R
+            16R
+        1 bigint = 8R
+        1 smallint = 2R
+        1 int = 4R
+
+    8192 = 24 + 27R + 8R + 22R +16R + 8R + 2R + 4R
+    8168 = 87R
+
+    R = 93 rows per page
+    Last page: 82 rows
 
 Table: denver_traffic_inc_address
     Relation Size: 23339008
+    Number of Pages: 2849
+    Space:
+        page oh = 24
+        row oh = 27R
+        1 text = 4R
+            12R
+        2 double precision = 2*8R
+        1 bigint = 8R
+        1 smallint = 2R 
+        1 int = 4R
+
+    8192 = 24 + 27R + 4R + 12R + 16R + 8R + 2R + 4R
+    8168 = 73R
+
+    R = 111 rows per page
+    Last page: 99 rows
 
 Table: denver_traffic_incident
     Relation Size: 58318848
+    Number of Pages: 7119
+        Space:
+        page oh = 24
+        row oh = 27R
+        2 timestamp = 2*8R
+        10 text = 10*4R
+            174R
+    
+    8192 = 24 + 27R + 16R + 40R + 174R
+    8168 = 257R
+
+    R = 31 rows per page
+    Last page: 24 rows
 
 Table: denver_traffic_offense
     Relation Size: 39305216
+    Number of Pages: 4798
+    Space:
+        page oh = 24
+        row oh = 27R
+        2 bigint = 2*8R
+        1 int = 4R
+        4 smallint = 4*2R
+        4 text = 4*4R
+            101R
+
+    8192 = 24 + 27R + 16R + 4R + 8R + 16R + 101R
+    8168 = 172R
+
+    R = 47 rows per page
+
