@@ -1,6 +1,6 @@
 SET search_path = f23_group20;
 
--- PART 1: Determining best attributes to use as a key
+-- Determining best attributes to use as a key
 
 -- Seeing which incident_id elements are repeated
 SELECT incident_id, COUNT(*) AS incident_count
@@ -36,7 +36,7 @@ ORDER BY offense_code_count DESC;
 -- this can be used in the ui for outputting a table from a user-provided offense code
 -- prob not a good idea for a key
 
--- PART 1 CONCLUSION - key = (offense_id, incident_id) - use when doing functional dependencies
+-- CONCLUSION - key = (offense_id, incident_id) - use when doing functional dependencies
 
 
 

@@ -1,6 +1,7 @@
 -- UPDATE traffic_accidents
 -- SET district_id = NULL
 -- WHERE district_id = 'UI';
+BEGIN;
 
 drop table if exists clean_traffic;
 CREATE TABLE clean_traffic AS 
@@ -136,3 +137,4 @@ ALTER TABLE f23_group20.clean_traffic OWNER TO f23_group20;
 -- UPDATE traffic_accidents SET point_x = 'Unknown' WHERE (point_x IS NULL);
 -- UPDATE traffic_accidents SET point_y = 'Unknown' WHERE (point_y IS NULL);
 
+COMMIT;

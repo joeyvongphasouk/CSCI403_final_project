@@ -1,3 +1,6 @@
+SET search_path = f23_group20;
+BEGIN;
+
 DROP TABLE IF EXISTS traffic_accidents;
 CREATE TABLE traffic_accidents (
     shape TEXT,
@@ -53,3 +56,5 @@ CREATE TABLE traffic_accidents (
 
 \COPY traffic_accidents FROM './traffic_accidents.csv' DELIMITER ',' CSV HEADER;
 ALTER TABLE f23_group20.traffic_accidents OWNER TO f23_group20;
+
+COMMIT;
